@@ -24,7 +24,9 @@ class Listener:
         self.bot = bot
 
     #Join message and info to be sent to the user.
-    #async def on_member_join(self,member):
+    async def on_member_join(self,member):
+        welcomeChannel = self.bot.get_channel(476782797906771998)
+        welcomeChannel.send(f"New traveller approaches the gates. It's {member.mention}!")
         
 def setup(bot):
     bot.add_cog(Listener(bot))
