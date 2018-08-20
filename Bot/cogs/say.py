@@ -9,8 +9,8 @@ class SayCog:
     #Allows the bot to seem like it's 'saying' stuff.
     @commands.has_any_role('Ichor','GOD') #Means that only Ichors and GODs can run the command.
     @commands.command(name='say')
-    async def SayMessage(self, ctx, *, message:str):
-        await ctx.send(message)
+    async def SayMessage(self, ctx, channel:discord.TextChannel *, message:str):
+        await channel.send(message)
         await ctx.message.delete()
 
     #Updates the presence. See FAQ of docs under "How do I set the 'Playing' status?" for more info
