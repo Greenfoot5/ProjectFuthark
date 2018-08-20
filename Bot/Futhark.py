@@ -68,4 +68,4 @@ async def on_ready():
                                                         type=3),status=discord.Status.dnd)
     print(f'Successfully logged in and booted...!\n')
 
-bot.run('TOKENI', bot=True, reconnect=True)
+bot.run('TOKEN', bot=True, reconnect=True)
