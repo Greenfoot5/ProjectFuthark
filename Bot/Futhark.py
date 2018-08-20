@@ -68,4 +68,4 @@ async def on_ready():
                                                         type=3),status=discord.Status.dnd)
     print(f'Successfully logged in and booted...!\n')
 
-bot.run('NDgwNzE0OTkwNDA4Njk1ODA4.Dlshlw.C3IHKPkU7gw6Sl4JlJ1DjnYgc3I', bot=True, reconnect=True)
+bot.run('TOKENI', bot=True, reconnect=True)
