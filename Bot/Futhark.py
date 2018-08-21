@@ -5,37 +5,37 @@ import sys, traceback
 import pickle
 
 """These examples make use of Python 3.6.2 and the rewrite version on the lib.
-
-For examples on cogs for the async version:
-https://gist.github.com/leovoel/46cd89ed6a8f41fd09c5
-
-Rewrite Documentation:
-http://discordpy.readthedocs.io/en/rewrite/api.html
-
-Rewrite Commands Documentation:
-http://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html
-
-Familiarising yourself with the documentation will greatly help you in creating your bot and using cogs.
-"""
+    
+    For examples on cogs for the async version:
+    https://gist.github.com/leovoel/46cd89ed6a8f41fd09c5
+    
+    Rewrite Documentation:
+    http://discordpy.readthedocs.io/en/rewrite/api.html
+    
+    Rewrite Commands Documentation:
+    http://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html
+    
+    Familiarising yourself with the documentation will greatly help you in creating your bot and using cogs.
+    """
 '''
-=-=-=
-Greenfoot5’s Cody Cavern
-
-436600674017476608
-=-=-=
-'''
+    =-=-=
+    Greenfoot5’s Cody Cavern
+    
+    436600674017476608
+    =-=-=
+    '''
 
 def get_prefix(bot, message):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
-
+    
     # Can use spaces. Keep simple though.
     prefixes = ['f!']
-
+    
     # Check to see if we are outside of a guild. e.g DM's etc.
     if not message.guild:
         # Only allow this prefix to be used in DMs
         return ['f!']
-
+    
     # If we are in a guild, we allow for the user to mention us or use any of the prefixes in our list.
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
@@ -61,11 +61,11 @@ if __name__ == '__main__':
 @bot.event
 async def on_ready():
     """http://discordpy.readthedocs.io/en/rewrite/api.html#discord.on_ready"""
-
+    
     print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: v1.0.0\n')
-
-    await bot.change_presence(activity=discord.Activity(name="Lucifer Season 2",
-                                                        type=3),status=discord.Status.dnd)
+    
+    await bot.change_presence(activity=discord.Activity(name="GOD",
+                                                        type=1),status=discord.Status.online)
     print(f'Successfully logged in and booted...!\n')
 
-bot.run('TOKEN', bot=True, reconnect=True)
+bot.run('NDgwNzE0OTkwNDA4Njk1ODA4.DlzZjQ.ZVUtSV1a5W3ZPUOe0HchuJc25h0', bot=True, reconnect=True)
