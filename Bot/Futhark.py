@@ -68,4 +68,4 @@ async def on_ready():
                                                         type=1),status=discord.Status.online)
     print(f'Successfully logged in and booted...!\n')
 
-bot.run('NDgwNzE0OTkwNDA4Njk1ODA4.DlzZjQ.ZVUtSV1a5W3ZPUOe0HchuJc25h0', bot=True, reconnect=True)
+bot.run('TOKEN', bot=True, reconnect=True)
