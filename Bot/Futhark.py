@@ -42,8 +42,9 @@ def get_prefix(bot, message):
 
 # Below cogs represents our folder our cogs are in. Following is the file name. So 'meme.py' in cogs, would be cogs.meme
 # Think of it like a dot path import
-initial_extensions = ['cogs.say',
-                      'cogs.owner']
+initial_extensions = ['cogs.devs',
+                      'cogs.ichor',
+                      'cogs.registering']
 
 bot = commands.Bot(command_prefix=get_prefix, description="The official Project Futhark bot", self_bot=False)
 bot.remove_command('help')
@@ -65,7 +66,7 @@ async def on_ready():
     print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: v1.0.0\n')
     
     await bot.change_presence(activity=discord.Activity(name="GOD",
-                                                        type=1),status=discord.Status.online)
+                                                        type=0),status=discord.Status.online)
     print(f'Successfully logged in and booted...!\n')
 
 bot.run('TOKEN', bot=True, reconnect=True)

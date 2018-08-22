@@ -1,14 +1,20 @@
 from discord.ext import commands
 import discord
+import pickle
         
-class OwnerCog:
+class DevCog:
 
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.group(name='dev', aliases='d')
+    async def dev(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send("No subcomand sent.")
     
     # Hidden means it won't show up on the default help.
-    @commands.command(name='load', hidden=True)
-    @commands.is_owner()
+    @dev.command(name='load', hidden=True)
+    @commands.has_any_role('Developer')
     async def cog_load(self, ctx, *, cog: str):
         """Command which Loads a Module.
         Remember to use dot path. e.g: cogs.owner"""
@@ -20,8 +26,8 @@ class OwnerCog:
         else:
             await ctx.send('**`SUCCESS`**')
 
-    @commands.command(name='unload', hidden=True)
-    @commands.is_owner()
+    @dev.command(name='unload', hidden=True)
+    @commands.has_any_role('Developer')
     async def cog_unload(self, ctx, *, cog: str):
         """Command which Unloads a Module.
         Remember to use dot path. e.g: cogs.owner"""
@@ -33,8 +39,8 @@ class OwnerCog:
         else:
             await ctx.send('**`SUCCESS`**')
 
-    @commands.command(name='reload', hidden=True)
-    @commands.is_owner()
+    @dev.command(name='reload', hidden=True)
+    @commands.has_any_role('Developer')
     async def cog_reload(self, ctx, *, cog: str):
         """Command which Reloads a Module.
         Remember to use dot path. e.g: cogs.owner"""
@@ -47,8 +53,8 @@ class OwnerCog:
         else:
             await ctx.send('**`SUCCESS`**')
 
-    @commands.command(name='embeds')
-    @commands.is_owner()
+    @dev.command(name='embeds')
+    @commands.has_any_role('Developer')
     async def example_embed(self, ctx):
         """A simple command which showcases the use of embeds.
 
@@ -69,14 +75,14 @@ class OwnerCog:
         await ctx.send(content='**A simple Embed for discord.py@rewrite in cogs.**', embed=embed)
 
     #Adds a spacer to the console.
-    @commands.command('spacer')
-    @commands.is_owner()
+    @dev.command('spacer')
+    @commands.has_any_role('Developer')
     async def Spacer(self,ctx):
         print("--------------------------------------------------")
 
     #Basic stats layout. Showing Tito how embeds work.
-    @commands.command('test')
-    @commands.is_owner()
+    @dev.command('test')
+    @commands.has_any_role('Developer')
     async def Test(self,ctx):
         embed = discord.Embed(title=ctx.author.display_name,
                               description=f"{ctx.author.mention}'s stats",
@@ -94,5 +100,21 @@ class OwnerCog:
                          icon_url=ctx.guild.icon_url_as(format='png'))
         await ctx.send(content='Message',embed=embed)
 
+    @dev.command(name='register')
+    @commands.has_any_role('Developer')
+    async def MemberRegister(self,ctx):
+        embed = discord.Embed(title='Register!?',
+                              description="I have told you already! The Gods have deemed the world not ready. When the time comes simply ask in #gate and you should be permitted! Now, please don't pseter me! I like my peace and quiet. I don't get much when the gates open.",
+                              colour=0x666666)
+        embed.set_author(name='Gate Keeper',
+                         icon_url='')
+        #embed.set_thumbnail(url=ctx.author.avatar_url_as(format='png'))
+
+        embed.add_field(name='When will they open?',value='You will know when it is ready.')
+        
+        embed.set_footer(text=self.bot.get_guild(476728702131109888).name,
+                         icon_url=self.bot.get_guild(476728702131109888).icon_url_as(format='png'))
+        await ctx.send(content='',embed=embed)
+
 def setup(bot):
-    bot.add_cog(OwnerCog(bot))
+    bot.add_cog(DevCog(bot))
