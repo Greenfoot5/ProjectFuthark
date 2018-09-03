@@ -7,7 +7,7 @@ class DevCog:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(name='dev', aliases='d')
+    @commands.group(name='dev', aliases=['d'])
     async def dev(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send("No subcomand sent.")
@@ -81,40 +81,16 @@ class DevCog:
         print("--------------------------------------------------")
 
     #Basic stats layout. Showing Tito how embeds work.
-    @dev.command('test')
+    @dev.command('printData')
     @commands.has_any_role('Developer')
     async def Test(self,ctx):
-        embed = discord.Embed(title=ctx.author.display_name,
-                              description=f"{ctx.author.mention}'s stats",
-                              colour=0x008800)
-        embed.set_author(name=self.bot.user.name,
-                         icon_url=self.bot.user.avatar_url_as(format='png'))
-        #embed.set_image(url='https://i.imgur.com/5BFecvA.png')
-        embed.set_thumbnail(url=ctx.author.avatar_url_as(format='png'))
-
-        embed.add_field(name='Balance',value=5,inline=False)
-        embed.add_field(name='Wins',value=25)
-        embed.add_field(name='Loses',value=0)
-        
-        embed.set_footer(text=ctx.guild.name,
-                         icon_url=ctx.guild.icon_url_as(format='png'))
-        await ctx.send(content='Message',embed=embed)
-
-    @dev.command(name='register')
-    @commands.has_any_role('Developer')
-    async def MemberRegister(self,ctx):
-        embed = discord.Embed(title='Register!?',
-                              description="I have told you already! The Gods have deemed the world not ready. When the time comes simply ask in #gate and you should be permitted! Now, please don't pseter me! I like my peace and quiet. I don't get much when the gates open.",
-                              colour=0x666666)
-        embed.set_author(name='Gate Keeper',
-                         icon_url='')
-        #embed.set_thumbnail(url=ctx.author.avatar_url_as(format='png'))
-
-        embed.add_field(name='When will they open?',value='You will know when it is ready.')
-        
-        embed.set_footer(text=self.bot.get_guild(476728702131109888).name,
-                         icon_url=self.bot.get_guild(476728702131109888).icon_url_as(format='png'))
-        await ctx.send(content='',embed=embed)
+        playerData = pickle.load(open('players.data','rb'))
+        worldData = pickle.load(open('world.data','rb'))
+        print('---')
+        print(playerData)
+        print('---')
+        print(worldData)
+        print('---')
 
 def setup(bot):
     bot.add_cog(DevCog(bot))

@@ -56,6 +56,53 @@ class Listener:
         embed.set_footer(text=self.bot.get_guild(476728702131109888).name,
                          icon_url=self.bot.get_guild(476728702131109888).icon_url_as(format='png'))
         await ctx.send(content='',embed=embed)
+        playerData = pickle.load(open('players.data','rb'))
+        print(playerData)
+
+    @commands.command(name='alpha')
+    @commands.has_any_role('Alpha')
+    async def MemberAlpha(self,ctx):
+        #Adds the Alpha role
+        #await ctx.author.add_roles(discord.utils.find(lambda r: r.id == 481834731575443456, ctx.guild.roles))
+        embed = discord.Embed(title='Alpha closed.',
+                              description="The alpha is now closed. If you want to join early, please wait for the beta.",
+                              colour=0x666666)
+        embed.set_author(name='Gate Keeper',
+                         icon_url='')
+        embed.set_thumbnail(url=ctx.author.avatar_url_as(format='png'))
+
+        embed.add_field(name='When will it start?',value="Once it is more stable and there are more features.")
+        
+        embed.set_footer(text=self.bot.get_guild(476728702131109888).name,
+                         icon_url=self.bot.get_guild(476728702131109888).icon_url_as(format='png'))
+
+        #await ctx.send(content='',embed=embed)
+
+        #Get the player data
+        playerData = pickle.load(open('players.data','rb'))
+        #Checks if the player is dead
+        try:
+            if playerData[f'{ctx.author.id}']['isDead'] == True:
+                await ctx.send("You are dead and cannot join. Please request revival from an Ichor.")
+                return
+            else:
+                playerData[f'{ctx.author.id}'] = {'inventory': [], 'balance': 0, 'team': None, 'currentLocation': 'stones', 'status': {'health': 100, 'hunger': 100, 'thirst': 100}, 'carryLimit': 2, 'carryAmount': 0, 'isIdle': False}
+        except KeyError:
+            playerData[f'{ctx.author.id}'] = {'inventory': [], 'balance': 0, 'team': None, 'currentLocation': 'stones', 'isDead': False, 'deadAmount': 0, 'status': {'health': 100, 'hunger': 100, 'thirst': 100}, 'carryLimit': 2, 'carryAmount': 0, 'isIdle': False}
+        pickle.dump(playerData,open('players.data','wb'))
+        
+        #Sets up the permissions in each of the channel
+        #stones text channel
+        await self.bot.get_channel(481588206836645888).set_permissions(ctx.message.author,read_messages=True,send_messages=True,read_message_history=True)
+        #temple text channel
+        await self.bot.get_channel(481588227086745611).set_permissions(ctx.message.author,read_messages=True,send_messages=False,read_message_history=False)
+        #chatting voice channel
+        await self.bot.get_channel(481588260351639555).set_permissions(ctx.message.author,connect=True,speak=True,use_voice_activation=True)
+        #empty-lot text channel
+        await self.bot.get_channel(481588293591629835).set_permissions(ctx.message.author,read_messages=True,send_messages=False,read_message_history=False)
+        #outskirts text channel
+        await self.bot.get_channel(481588354157379604).set_permissions(ctx.message.author,read_messages=True,send_messages=False,read_message_history=False)
+        await ctx.send(content='Welcome back.')
         
 def setup(bot):
     bot.add_cog(Listener(bot))

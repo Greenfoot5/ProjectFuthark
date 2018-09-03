@@ -17,13 +17,6 @@ import pickle
     
     Familiarising yourself with the documentation will greatly help you in creating your bot and using cogs.
     """
-'''
-    =-=-=
-    Greenfoot5’s Cody Cavern
-    
-    436600674017476608
-    =-=-=
-    '''
 
 def get_prefix(bot, message):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
@@ -43,8 +36,10 @@ def get_prefix(bot, message):
 # Below cogs represents our folder our cogs are in. Following is the file name. So 'meme.py' in cogs, would be cogs.meme
 # Think of it like a dot path import
 initial_extensions = ['cogs.devs',
-                      'cogs.ichor',
-                      'cogs.registering']
+                      'cogs.god',
+                      'cogs.registering',
+                      'cogs.travel',
+                      'cogs.survival']
 
 bot = commands.Bot(command_prefix=get_prefix, description="The official Project Futhark bot", self_bot=False)
 bot.remove_command('help')
